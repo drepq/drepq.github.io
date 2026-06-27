@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>drep — Frontend Разработчик</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --accent-color: #64ffda;
+            --accent-rgb: 100, 255, 218; /* Для использования в rgba */
+            --card-bg: rgba(30, 30, 30, 0.85); /* Слегка прозрачные карточки */
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        /* Канвас для фона с графами */
+        #network-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none; /* Чтобы клики проходили сквозь канвас */
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
+            margin-bottom: 20px;
+            background-color: #1e1e1e;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+        
+        .subtitle {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        
+        section {
+            margin-bottom: 50px;
+        }
+        
+        h2 {
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            color: #ffffff;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .skill-item {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid #333;
+            font-weight: 500;
+            backdrop-filter: blur(10px); /* Эффект матового стекла на фоне графов */
+        }
+        
+        .projects {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .project-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            transition: transform 0.2s ease, border-left 0.2s ease;
+            border-left: 4px solid transparent;
+            backdrop-filter: blur(10px); /* Эффект матового стекла */
+        }
+        
+        .project-card:hover {
+            transform: translateX(5px);
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .project-title {
+            margin: 0 0 10px 0;
+            color: #fff;
+            font-size: 1.2rem;
+        }
+        
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+        
+        a:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Холст для фоновой анимации -->
+    <canvas id="network-canvas"></canvas>
+
+    <div class="container">
+        <header>
+            <img src="./image.jpg" alt="Аватар" class="avatar">
+            <h1>drep</h1>
+            <div class="subtitle">Frontend Разработчик</div>
+        </header>
+
+        <section id="about">
+            <h2>Обо мне</h2>
+            <p>Специализируюсь на веб-разработке и создании современных пользовательских интерфейсов. Проектирую и собираю масштабируемые веб-приложения, используя весь стек современных фронтенд-инструментов. Профессионально решаю задачи любой сложности: от адаптивной верстки до разработки комплексных SPA-решений.</p>
+        </section>
+
+        <section id="expertise">
+            <h2>Технологический стек</h2>
+            <div class="skills-grid">
+                <div class="skill-item">React.js</div>
+                <div class="skill-item">Vue.js</div>
+                <div class="skill-item">JavaScript (ES6+)</div>
+                <div class="skill-item">TypeScript</div>
+                <div class="skill-item">HTML5 & CSS3</div>
+                <div class="skill-item">Адаптивная верстка</div>
+                <div class="skill-item">Next.js / Nuxt.js</div>
+                <div class="skill-item">Git / Сборщики (Vite)</div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Что я разрабатываю</h2>
+            <div class="projects">
+                <div class="project-card">
+                    <h3 class="project-title">Интерактивные веб-приложения (SPA)</h3>
+                    <p>Разработка динамических приложений на React и Vue с реактивным интерфейсом, управлением состоянием и интеграцией с любыми API.</p>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">Сайты под ключ и Лендинги</h3>
+                    <p>Создание быстрых, SEO-оптимизированных и полностью адаптивных сайтов с высокой конверсией и плавной анимацией.</p>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">Сложная верстка по макетам</h3>
+                    <p>Качественный перенос дизайна из Figma в чистый, валидный и поддерживаемый код с использованием современных методологий.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Контакты</h2>
+            <p>Готов к сотрудничеству и интересным проектам:</p>
+            <p>Kwork: <a href="#">https://kwork.ru/user/drep-q</a> <br>
+               Telegram: <a href="#">@user_elit</a> <br>
+               
+        </section>
+    </div>
+
+    <!-- Скрипт для анимации графов на фоне -->
+    <script>
+        const canvas = document.getElementById('network-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let particles = [];
+        
+        // Настройки графа
+        const particleCount = 60; // Количество узлов
+        const connectionDistance = 150; // Дистанция для связи
+        const mouseConnectionDistance = 200; // Дистанция связи с мышью
+        
+        let mouse = {
+            x: null,
+            y: null
+        };
+
+        // Обновление размеров канваса
+        function resizeCanvas() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        // Класс частицы (узла)
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 1; // Скорость по X
+                this.vy = (Math.random() - 0.5) * 1; // Скорость по Y
+                this.radius = Math.random() * 2 + 1; // Размер узла
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Отталкивание от краев
+                if (this.x < 0 || this.x > width) this.vx = -this.vx;
+                if (this.y < 0 || this.y > height) this.vy = -this.vy;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(100, 255, 218, 0.5)';
+                ctx.fill();
+            }
+        }
+
+        // Инициализация частиц
+        function init() {
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        // Анимация
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, width, height);
+
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                // Соединение частиц друг с другом
+                for (let j = i; j < particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < connectionDistance) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        // Прозрачность зависит от расстояния
+                        let opacity = 1 - (distance / connectionDistance);
+                        ctx.strokeStyle = `rgba(100, 255, 218, ${opacity * 0.2})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+
+                // Соединение частиц с мышью
+                if (mouse.x != null && mouse.y != null) {
+                    let dxMouse = particles[i].x - mouse.x;
+                    let dyMouse = particles[i].y - mouse.y;
+                    let distanceMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+
+                    if (distanceMouse < mouseConnectionDistance) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        let opacityMouse = 1 - (distanceMouse / mouseConnectionDistance);
+                        ctx.strokeStyle = `rgba(100, 255, 218, ${opacityMouse * 0.4})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        init();
+        animate();
+    </script>
+</body>
+</html>
